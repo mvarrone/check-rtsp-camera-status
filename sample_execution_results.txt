@@ -1,0 +1,19 @@
+
+Total of cameras checked: 6
+Cameras up: 2
+Cameras down: 4
+Percentage of cameras up: 33.33 %
+Percentage of cameras down: 66.67 %
+Average response time for cameras up: 3.97 s
+
+Status up:
+{'domain': 'mydomain2.dyndns.org', 'url': 'rtsp://username:password@mydomain2.dyndns.org:554/Streaming/Channels/301', 'camera': 301}
+{'domain': 'mydomain1.dyndns.org', 'url': 'rtsp://username:password@mydomain1.dyndns.org:554/Streaming/Channels/201', 'camera': 201}
+
+Status down:
+{'domain': 'mydomain1.dyndns.org', 'url': 'rtsp://username:password@mydomain1.dyndns.org:554/Streaming/Channels/101', 'camera': 101}
+{'domain': 'mydomain2.dyndns.org', 'url': 'rtsp://username:password@mydomain2.dyndns.org:554/Streaming/Channels/101', 'camera': 101}
+{'domain': 'mydomain2.dyndns.org', 'url': 'rtsp://username:password@mydomain2.dyndns.org:554/Streaming/Channels/401', 'camera': 401}
+{'domain': 'mydomain2.dyndns.org', 'url': 'rtsp://username:password@mydomain2.dyndns.org:554/Streaming/Channels/201', 'camera': 201}
+
+Total script execution time: 4.87 s
