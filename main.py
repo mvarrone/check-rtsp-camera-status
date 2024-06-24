@@ -1,4 +1,3 @@
-import cv2
 import json
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
