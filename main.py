@@ -2,14 +2,14 @@ import cv2
 import json
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
-
+import subprocess
 import sys
 from typing import List, Dict, Tuple, Union
 
 
 def check_camera(
     camera_config: Dict[str, Union[str, int]]
-) -> Tuple[bool, float, str, Union[str, int, None], str]:
+) -> Tuple[bool, float, str, Union[str, int, None], str, str]:
     protocol = camera_config.get("protocol")
     username = camera_config.get("username")
     password = camera_config.get("password")
@@ -19,40 +19,44 @@ def check_camera(
     camera_number = camera_config.get("camera_number")
 
     url = f"{protocol}://{username}:{password}@{domain}:{port}{path}{camera_number}"
+    error_msg = ""
+    start_time = time.time()
+    is_up = False
+
     try:
-        start_time = time.time()
-        cap = cv2.VideoCapture(url)
-        if cap.isOpened():
-            cap.release()
+        # Use ffmpeg to try to access the camera stream and capture detailed errors
+        command = [
+            "ffmpeg",
+            "-rtsp_transport",
+            "tcp",
+            "-i",
+            url,
+            "-vframes",
+            "1",
+            "-f",
+            "null",
+            "-",
+        ]
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stderr_output = result.stderr.decode()
 
+        if result.returncode == 0:
             is_up = True
-            exec_time = time.time() - start_time
-            domain = domain
-            camera_number = camera_config.get("camera_number")
-            url = url
-
-            return is_up, exec_time, domain, camera_number, url
         else:
+            if "401 Unauthorized" in stderr_output:
+                error_msg = "401 Unauthorized"
+            elif "404 Not Found" in stderr_output:
+                error_msg = "404 Not Found"
+            else:
+                error_msg = f"Other error: {stderr_output}"
 
-            is_up = False
-            exec_time = time.time() - start_time
-            domain = domain
-            camera_number = camera_config.get("camera_number")
-            url = url
-
-            return is_up, exec_time, domain, camera_number, url
-    except Exception as e:
-
-        is_up = False
         exec_time = time.time() - start_time
-        domain = domain
-        camera_number = camera_config.get("camera_number")
-        url = url
-        error_msg = str(e)
-        print(f"error_msg: {error_msg}")
+        return is_up, exec_time, domain, camera_number, url, error_msg
 
-        return is_up, exec_time, domain, camera_number, url
-        # return is_up, exec_time, domain, camera_number, url, error_msg
+    except Exception as e:
+        error_msg = str(e)
+        exec_time = time.time() - start_time
+        return is_up, exec_time, domain, camera_number, url, error_msg
 
 
 def print_stats(
@@ -121,7 +125,9 @@ def main() -> None:
             cameras_checked += 1
             config = future_to_config[future]
             try:
-                is_up, exec_time, domain, camera_number, url = future.result()
+                is_up, exec_time, domain, camera_number, url, error_msg = (
+                    future.result()
+                )
                 if is_up:
                     cameras_up += 1
                     total_response_time += exec_time
@@ -130,7 +136,12 @@ def main() -> None:
                     )
                 else:
                     status_down.append(
-                        {"domain": domain, "url": url, "camera": camera_number}
+                        {
+                            "domain": domain,
+                            "url": url,
+                            "camera": camera_number,
+                            "error_msg": error_msg,
+                        }
                     )
             except Exception as exc:
                 print(f"Error occurred while checking {config}: {exc}")
@@ -150,4 +161,4 @@ def main() -> None:
 if __name__ == "__main__":
     start_total = time.time()
     main()
-    print(f"\nTotal script execution time: {time.time() - start_total:.2f} s")
+    print(f"Total script execution time: {time.time() - start_total:.2f} s")
