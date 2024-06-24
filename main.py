@@ -49,7 +49,7 @@ def check_camera(
         camera_number = camera_config.get("camera_number")
         url = url
         error_msg = str(e)
-        print("asdasdas-dsa-das-d-asd-asd-", error_msg)
+        print(f"error_msg: {error_msg}")
 
         return is_up, exec_time, domain, camera_number, url
         # return is_up, exec_time, domain, camera_number, url, error_msg
