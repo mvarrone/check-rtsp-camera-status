@@ -18,8 +18,6 @@ def check_camera(
     camera_number = camera_config.get("camera_number")
 
     url = f"{protocol}://{username}:{password}@{domain}:{port}{path}{camera_number}"
-    error_msg = ""
-    error_code = 0
     start_time = time.time()
     is_up = False
 
@@ -42,6 +40,8 @@ def check_camera(
 
         if result.returncode == 0:
             is_up = True
+            error_msg = ""
+            error_code = 0
         else:
             if "401 Unauthorized" in stderr_output:
                 error_msg = "401 Unauthorized"
