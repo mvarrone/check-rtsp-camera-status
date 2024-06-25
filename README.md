@@ -1,8 +1,8 @@
-# Check RTSP camera's status
+# Monitoring
 
-## Python 3 script able to check the availability of several IP Cameras via RTSP
+## Python 3 script designed to check the availability of several IP Cameras via RTSP protocol
 
-### Details
+### Explanation
 
 * ProcessPoolExecutor used in order to connect to the cameras in parallel and reduce the amount of time needed to complete this task
 * It provides some stats at the end of the execution. Check [sample_execution_results.txt](https://github.com/mvarrone/check-rtsp-camera-status/blob/master/sample_execution_results.txt)
