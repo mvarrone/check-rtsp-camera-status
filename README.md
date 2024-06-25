@@ -1,6 +1,6 @@
 # Monitoring
 
-## Python 3 script designed to check the availability of several IP Cameras via RTSP protocol
+## Python 3 script designed to check the availability of multiple IP Cameras at once via RTSP protocol
 
 ### Explanation
 
