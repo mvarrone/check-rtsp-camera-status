@@ -1,4 +1,4 @@
-# ip-cameras-private
+# Check RTSP camera's status
 
 ## Python 3 script able to check the availability of several IP Cameras via RTSP
 

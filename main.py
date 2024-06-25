@@ -19,6 +19,7 @@ def check_camera(
 
     url = f"{protocol}://{username}:{password}@{domain}:{port}{path}{camera_number}"
     error_msg = ""
+    error_code = 0
     start_time = time.time()
     is_up = False
 
@@ -44,18 +45,21 @@ def check_camera(
         else:
             if "401 Unauthorized" in stderr_output:
                 error_msg = "401 Unauthorized"
+                error_code = 401
             elif "404 Not Found" in stderr_output:
                 error_msg = "404 Not Found"
+                error_code = 404
             else:
                 error_msg = f"Other error: {stderr_output}"
+                error_code = -1
 
         exec_time = time.time() - start_time
-        return is_up, exec_time, domain, camera_number, url, error_msg
+        return is_up, exec_time, domain, camera_number, url, error_msg, error_code
 
     except Exception as e:
         error_msg = str(e)
         exec_time = time.time() - start_time
-        return is_up, exec_time, domain, camera_number, url, error_msg
+        return is_up, exec_time, domain, camera_number, url, error_msg, error_code
 
 
 def print_stats(
@@ -124,7 +128,7 @@ def main() -> None:
             cameras_checked += 1
             config = future_to_config[future]
             try:
-                is_up, exec_time, domain, camera_number, url, error_msg = (
+                is_up, exec_time, domain, camera_number, url, error_msg, error_code = (
                     future.result()
                 )
                 if is_up:
@@ -140,6 +144,7 @@ def main() -> None:
                             "url": url,
                             "camera": camera_number,
                             "error_msg": error_msg,
+                            "error_code": error_code,
                         }
                     )
             except Exception as exc:
