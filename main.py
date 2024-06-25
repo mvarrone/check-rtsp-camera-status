@@ -61,7 +61,7 @@ def check_camera(
 def print_stats(
     total_cameras, cameras_up, cameras_down, total_response_time, status_up, status_down
 ) -> None:
-    print(f"\nTotal of cameras checked: {total_cameras}")
+    print(f"Total of cameras checked: {total_cameras}")
     print(f"Cameras up: {cameras_up}")
     print(f"Cameras down: {cameras_down}")
 
@@ -75,11 +75,11 @@ def print_stats(
         avg_response_time = total_response_time / cameras_up
         print(f"Average response time for cameras up: {avg_response_time:.2f} s")
 
-    print("\nStatus up:")
+    print("\nStatus up")
     for item in status_up:
         print(item)
 
-    print("\nStatus down:")
+    print("\nStatus down")
     for item in status_down:
         print(item)
 
@@ -160,4 +160,5 @@ def main() -> None:
 if __name__ == "__main__":
     start_total = time.time()
     main()
-    print(f"Total script execution time: {time.time() - start_total:.2f} s")
+    end_total = time.time() - start_total
+    print(f"\nTotal script execution time: {end_total:.2f} s")

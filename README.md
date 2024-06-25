@@ -8,7 +8,7 @@
 * It provides some stats at the end of the execution. Check [sample_execution_results.txt](https://github.com/mvarrone/check-rtsp-camera-status/blob/master/sample_execution_results.txt)
 * Each camera is represented as a Python 3 dictionary, stored in the *credentials.json* file. This file is a **list** of dictionaries containing the following structure for a fake set of parameters:
 
-*Example:*
+Example
 
 ```python
 [
