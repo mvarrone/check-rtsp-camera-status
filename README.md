@@ -35,18 +35,18 @@ Example
 
 ### RTSP IP Camera URL example
 
-```python
+```bash
 rtsp://admin:password@domain.dyndns.org:554/Streaming/Channels/101
 ```
 
-Again, this URL is not a valid *RTSP* url. 
+Again, this URL is not a currently working *RTSP* url because it contains invalid information. It is displayed here only for guidance purposes on how to structure it
 
-Same for [sample_execution_results.txt](https://github.com/mvarrone/check-rtsp-camera-status/blob/master/sample_execution_results.txt): In this file, sensitive parameters are faked
+Same for [sample_execution_results.txt](https://github.com/mvarrone/check-rtsp-camera-status/blob/master/sample_execution_results.txt): In this file, sensitive parameters are faked as well
 
 ## Requirements
 
-- *Python 3.12.2*
-- *ffmpeg*
+1. [*Python 3.12.2*](https://www.python.org)
+2. [*ffmpeg*](https://www.ffmpeg.org)
 
 ```bash
 ffmpeg version 2024-04-29-git-cf4af4bca0-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers
