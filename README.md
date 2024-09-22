@@ -1,6 +1,6 @@
-# Monitoring
+# Camera monitoring
 
-## Python 3 script designed to check the availability of multiple IP Cameras at once via RTSP protocol
+## This project monitors the real-time availability of multiple RTSP IP cameras simultaneously, providing insights into the status and uptime of each camera feed. It’s designed to ensure reliable video surveillance and reduce downtime by offering quick alerts on connectivity issues.
 
 ### Explanation
 
